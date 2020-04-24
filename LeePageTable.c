@@ -10,16 +10,23 @@ struct page_table_entry {
     unsigned int metadata; // if valid bit == 1, it is in memory
 };
 
+typedef int pageno_t;
+
 struct page_table {
-    // number of pages to keep track of; this also represents the length of the page_table_entry
-    // array
+    /*
+     * Number of pages to keep track of; this also represents the length of the page_table_entry
+     * array
+     */
     int page_count;
     // array of all page table entries
     struct page_table_entry *entries;
     // number of frames in "memory"
     int frame_count;
-    // array of frames
-    struct page_table_entry *frames;
+    /*
+     * Array of frames; each frame contains a page number to indicate that it contains that page.
+     * If a frame has -1, then it's empty.
+     */
+    pageno_t *frames;
     // replacement algorithm to use for page swapping
     enum replacement_algorithm algorithm;
 };
@@ -29,6 +36,8 @@ char *replacement_algorithm[] = {
         "LRU",
         "MFU"
 };
+
+static const int EMPTY = -1;
 
 /**
  * Creates a new page table object. Returns a pointer to created page table.
@@ -49,9 +58,9 @@ struct page_table *page_table_create(int page_count, int frame_count,
         pt->entries[i].metadata = 0;
     }
     pt->frame_count = frame_count;
-    pt->frames = (struct page_table_entry *) malloc(sizeof(struct page_table_entry) * frame_count);
+    pt->frames = (pageno_t *) malloc(sizeof(pageno_t) * frame_count);
     for (int i = 0; i < frame_count; ++i) {
-        pt->frames[i].metadata = 0;
+        pt->frames[i] = EMPTY;
     }
     if (verbose) {
         printf("Created page_table{page_count=%d, frame_count=%d, replacement_algorithm=%s}\n",
@@ -78,7 +87,9 @@ void page_table_destroy(struct page_table **pt) {
  * @param page The page being accessed.
  */
 void page_table_access_page(struct page_table *pt, int page) {
+    for (int i = 0; i < pt->frame_count; ++i) {
 
+    }
 }
 
 /**
