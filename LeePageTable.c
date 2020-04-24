@@ -4,6 +4,16 @@
 
 #include "PageTable.h"
 
+// page table entry
+struct page_table_entry {
+    unsigned int entry; // if valid bit == 1, it is in memory
+    int ref;
+};
+
+struct page_table {
+    struct page_table_entry *pte;
+};
+
 /**
  * Creates a new page table object. Returns a pointer to created page table.
  *
