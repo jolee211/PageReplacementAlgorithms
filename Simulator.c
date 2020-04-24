@@ -15,9 +15,9 @@ int main(int argc, char* argv[]) {
     char* filename = "/Users/jolee211/PageReplacementAlgorithms/data-1.txt";
 
     struct test_scenario* data = load_test_data(filename);
-    struct page_table* pt_fifo = page_table_create(data->page_count, data->frame_count, FIFO, 0);
-    struct page_table* pt_lru = page_table_create(data->page_count, data->frame_count, LRU, 0);
-    struct page_table* pt_mfu = page_table_create(data->page_count, data->frame_count, MFU, 0);
+    struct page_table* pt_fifo = page_table_create(data->page_count, data->frame_count, FIFO, 1);
+    struct page_table* pt_lru = page_table_create(data->page_count, data->frame_count, LRU, 1);
+    struct page_table* pt_mfu = page_table_create(data->page_count, data->frame_count, MFU, 1);
 
     //simulate page requests: fifo
     for (int i = 0; i < data->refstr_len; i++) {
