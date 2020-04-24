@@ -11,7 +11,8 @@
 #include "PageTable.h"
 
 int main(int argc, char* argv[]) {
-    char* filename = argv[2];
+//    char* filename = argv[2];
+    char* filename = "/Users/jolee211/PageReplacementAlgorithms/data-1.txt";
 
     struct test_scenario* data = load_test_data(filename);
     struct page_table* pt_fifo = page_table_create(data->page_count, data->frame_count, FIFO, 0);
@@ -38,6 +39,10 @@ int main(int argc, char* argv[]) {
         //page_table_display_contents(pt_mfu);
     }
     page_table_display(pt_mfu);
+
+    page_table_display_contents(pt_fifo);
+    page_table_display_contents(pt_lru);
+    page_table_display_contents(pt_mfu);
 
     page_table_destroy(&pt_fifo);
     page_table_destroy(&pt_lru);

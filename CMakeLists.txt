@@ -3,4 +3,4 @@ project(PageReplacementAlgorithms C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(pra Simulator.c LeeDataLoader.c)
+add_executable(pra Simulator.c LeeDataLoader.c LeePageTable.c)
