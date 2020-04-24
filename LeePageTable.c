@@ -58,7 +58,7 @@ struct page_table *page_table_create(int page_count, int frame_count,
         pt->pte[i].reference = 0;
     }
     if (verbose) {
-        printf("Created page_table{page_count=%d, frame_count=%d, replacement_algorithm=%s,",
+        printf("Created page_table{page_count=%d, frame_count=%d, replacement_algorithm=%s}\n",
                 pt->page_count, pt->frame_count, replacement_algorithm[algorithm]);
     }
     return pt;
@@ -69,7 +69,10 @@ struct page_table *page_table_create(int page_count, int frame_count,
  *
  * @param pt A page table object.
  */
-void page_table_destroy(struct page_table **pt) {}
+void page_table_destroy(struct page_table **pt) {
+    free((*pt)->pte);
+    free(*pt);
+}
 
 /**
  * Simulates an instruction accessing a particular page in the page table.
